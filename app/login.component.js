@@ -11,7 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 const core_1 = require('@angular/core');
 const http_1 = require("@angular/http");
 require('rxjs/Rx');
-let AppComponent = class AppComponent {
+let LoginComponent = class LoginComponent {
     constructor(http) {
         this.http = http;
     }
@@ -23,13 +23,13 @@ let AppComponent = class AppComponent {
         this.doShit().subscribe(data => { this.fuck = data; }, err => console.error("this is fine"), () => console.log("holy fuck balls"));
     }
 };
-AppComponent = __decorate([
+LoginComponent = __decorate([
     core_1.Component({
-        selector: 'my-app',
-        template: `<button (click)="start()">Go</button>`,
+        selector: 'appHeader',
+        template: `<button (click)="start()">crap</button>`,
     }),
     core_1.Injectable(), 
     __metadata('design:paramtypes', [http_1.Http])
-], AppComponent);
-exports.AppComponent = AppComponent;
-//# sourceMappingURL=app.component.js.map
+], LoginComponent);
+exports.LoginComponent = LoginComponent;
+//# sourceMappingURL=login.component.js.map

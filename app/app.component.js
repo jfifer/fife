@@ -8,19 +8,26 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var core_1 = require('@angular/core');
-var AppComponent = (function () {
-    function AppComponent() {
-        this.name = 'Angular';
+const core_1 = require('@angular/core');
+const http_1 = require('angular2/http');
+let AppComponent = class AppComponent {
+    constructor(http) {
+        this.http = http;
     }
-    AppComponent = __decorate([
-        core_1.Component({
-            selector: 'my-app',
-            template: "<h1>Hello {{name}}</h1>",
-        }), 
-        __metadata('design:paramtypes', [])
-    ], AppComponent);
-    return AppComponent;
-}());
+    logError(err) {
+        console.error("This is fine: " + err);
+    }
+    getRandomQuote() {
+        this.http.get('http://localhost:3001/api/random-quote')
+            .subscribe(data => this.randomQuote = data.text(), err => this.logError(err.text()), () => console.log('Random Quote Complete'));
+    }
+};
+AppComponent = __decorate([
+    core_1.Component({
+        selector: 'my-app',
+        template: `<h1>Hello</h1>`,
+    }), 
+    __metadata('design:paramtypes', [http_1.Http])
+], AppComponent);
 exports.AppComponent = AppComponent;
 //# sourceMappingURL=app.component.js.map

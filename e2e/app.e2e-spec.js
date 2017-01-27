@@ -1,7 +1,7 @@
 "use strict";
-var protractor_1 = require('protractor');
+const protractor_1 = require('protractor');
 describe('QuickStart E2E Tests', function () {
-    var expectedMsg = 'Hello Angular';
+    let expectedMsg = 'Hello Angular';
     beforeEach(function () {
         protractor_1.browser.get('');
     });

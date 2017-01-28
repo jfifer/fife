@@ -5,23 +5,30 @@ import 'rxjs/Rx';
 
 @Component({
   selector: 'appHeader',
-  template: `<button (click)="start()">crap</button>`,
+  template: `
+	<input [(ngModel)]="username" placeholder="username" />
+	<input [(ngModel)]="password" type="password" placeholder="password" />
+	<button (click)="start()">login</button>`,
 })
 @Injectable()
 export class LoginComponent {
-   
-   public result: null;
+   public username: any;
+   public password: any;
+   public url: string;
+   public result: any;
+
    constructor(private http: Http) { }
 
    doCall() {
-     return this.http.get("api/portal/attr/attr2").map((res:Response)=>res.json())
+     this.url = "api/auth/" + this.username + "/" + this.password;
+     return this.http.get(this.url).map((res:Response)=>res.json())
    }
 
    start() {
       this.doCall().subscribe(
          data=>{this.result = data},
          err=>console.error("this is fine"),
-         ()=>console.log("works")
+         ()=>console.log(this.result)
       );
    }
 }

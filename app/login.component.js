@@ -15,18 +15,21 @@ let LoginComponent = class LoginComponent {
     constructor(http) {
         this.http = http;
     }
-    doShit() {
-        return this.http.get("api/portal/fuck/shit").map((res) => res.json());
+    doCall() {
+        this.url = "api/auth/" + this.username + "/" + this.password;
+        return this.http.get(this.url).map((res) => res.json());
     }
     start() {
-        console.log("here we go");
-        this.doShit().subscribe(data => { this.fuck = data; }, err => console.error("this is fine"), () => console.log("holy fuck balls"));
+        this.doCall().subscribe(data => { this.result = data; }, err => console.error("this is fine"), () => console.log(this.result));
     }
 };
 LoginComponent = __decorate([
     core_1.Component({
         selector: 'appHeader',
-        template: `<button (click)="start()">crap</button>`,
+        template: `
+	<input [(ngModel)]="username" placeholder="username" />
+	<input [(ngModel)]="password" type="password" placeholder="password" />
+	<button (click)="start()">login</button>`,
     }),
     core_1.Injectable(), 
     __metadata('design:paramtypes', [http_1.Http])

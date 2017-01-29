@@ -14,22 +14,40 @@ require('rxjs/Rx');
 let LoginComponent = class LoginComponent {
     constructor(http) {
         this.http = http;
+        this.loggedIn = false;
+        this.checkAuth();
     }
-    doCall() {
-        this.url = "api/auth/" + this.username + "/" + this.password;
+    doCheckAuth() {
+        this.url = "api/portal/auth";
         return this.http.get(this.url).map((res) => res.json());
     }
-    start() {
-        this.doCall().subscribe(data => { this.result = data; }, err => console.error("this is fine"), () => console.log(this.result));
+    checkAuth() {
+        this.doCheckAuth().subscribe(function (res) {
+            console.log(parseInt(res.uid));
+            console.log(parseInt(res.uid) > 0);
+            if (parseInt(res.uid) > 0) {
+                this.loggedIn = true;
+            }
+            else {
+                this.loggedIn = false;
+            }
+            console.log("duck: " + this.loggedIn);
+        });
+    }
+    doLogin() {
+        this.url = "api/portal/auth/" + this.username + "/" + this.password;
+        return this.http.get(this.url).map((res) => res.json());
+    }
+    login() {
+        this.doLogin().subscribe(data => { this.result = data; }, err => console.error("this is fine"), () => console.log(this.result));
+    }
+    logout() {
     }
 };
 LoginComponent = __decorate([
     core_1.Component({
         selector: 'appHeader',
-        template: `
-	<input [(ngModel)]="username" placeholder="username" />
-	<input [(ngModel)]="password" type="password" placeholder="password" />
-	<button (click)="start()">login</button>`,
+        templateUrl: "app/assets/partials/login.html"
     }),
     core_1.Injectable(), 
     __metadata('design:paramtypes', [http_1.Http])

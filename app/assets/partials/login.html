@@ -1,0 +1,9 @@
+{{username}}
+<div id="loginForm" *ngIf="loggedIn==false">
+  <input [(ngModel)]="username" placeholder="username" />
+  <input [(ngModel)]="password" type="password" placeholder="password" />
+  <button (click)="login()">login</button>
+</div>
+<div id="loggedIn" *ngIf="loggedIn==true">
+  <button (click)="logout()">logout</button>
+</div>

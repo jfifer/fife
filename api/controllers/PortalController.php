@@ -1,6 +1,3 @@
-nttools:/var/www/html$ sudo vi api/controllers/PortalController.php 
-jfifer@inttools:/var/www/html$ sudo vi api/controllers/PortalController.php 
-
 <?php
 include_once 'AbstractController.php';
 
@@ -15,8 +12,10 @@ class PortalController extends AbstractController {
                   $username = $request->url_elements[3];
                   $password = $request->url_elements[4];
                   $data = $model->login($username, $password);
-                } else {
-                  $data = $model->logout();
+                } else if(isset($request->url_elements[3]) && $request->url_elements[3] === "logout") {
+		  $data = $model->logout();
+		} else {
+                  $data = $model->authCheck();
                 }
              default:
                 break;
@@ -30,6 +29,3 @@ class PortalController extends AbstractController {
     public function postAction($request) {
     }
 }
-
-
-?>

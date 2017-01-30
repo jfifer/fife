@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Angular QuickStart</title>
+    <title>Agrimon</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="app/assets/css/styles.css">
 
     <!-- Polyfill(s) for older browsers -->
     <script src="node_modules/core-js/client/shim.min.js"></script>
@@ -18,7 +19,15 @@
   </head>
 
   <body>
-    <appHeader>Loading</appHeader>
+    <header>
+        <div id="headerImg">
+	  <img src="app/assets/images/coredial-logo-white-bg1.png" alt="CoreDial" />
+	  <appHeader><i class="fa fa-spinner" aria-hidden="true"></i></appHeader>
+	</div>
+	<div id="headerMenu">
+
+	</div>
+    </header>
     <my-app>Loading AppComponent content here ...</my-app>
   </body>
 </html>

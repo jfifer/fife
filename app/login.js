@@ -9,28 +9,45 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 const core_1 = require('@angular/core');
+const http_1 = require("@angular/http");
 require('rxjs/Rx');
-let AppComponent = class AppComponent {
-    constructor() {
-        this.url = "api/portal/";
+let Login = class Login {
+    constructor(http) {
+        this.http = http;
+        this.loggedIn = false;
+        this.checkAuth();
     }
     doGet(url) {
         return this.http.get(url).map((res) => res.json());
     }
-    listServerGroups() {
-        this.url = "api/portal/query/server_group";
+    checkAuth() {
+        this.url = "api/portal/auth";
         this.doGet(this.url).subscribe(res => {
-            console.log(res);
+            this.uid = parseInt(res.uid);
+            if (this.uid > 0) {
+                this.loggedIn = true;
+            }
+            else {
+                this.loggedIn = false;
+            }
         });
     }
+    login() {
+        this.url = "api/portal/auth" + this.username + "/" + this.password;
+        this.doGet(this.url).subscribe(res => {
+            this.checkAuth();
+        });
+    }
+    logout() {
+    }
 };
-AppComponent = __decorate([
+Login = __decorate([
     core_1.Component({
-        selector: 'my-app',
-        template: `Stuff Goes Here.`,
+        selector: 'appHeader',
+        templateUrl: "app/assets/partials/login.html"
     }),
     core_1.Injectable(), 
-    __metadata('design:paramtypes', [])
-], AppComponent);
-exports.AppComponent = AppComponent;
-//# sourceMappingURL=app.component.js.map
+    __metadata('design:paramtypes', [http_1.Http])
+], Login);
+exports.Login = Login;
+//# sourceMappingURL=login.js.map

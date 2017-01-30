@@ -17,29 +17,26 @@ let LoginComponent = class LoginComponent {
         this.loggedIn = false;
         this.checkAuth();
     }
-    doCheckAuth() {
-        this.url = "api/portal/auth";
-        return this.http.get(this.url).map((res) => res.json());
+    doGet(url) {
+        return this.http.get(url).map((res) => res.json());
     }
     checkAuth() {
-        this.doCheckAuth().subscribe(function (res) {
-            console.log(parseInt(res.uid));
-            console.log(parseInt(res.uid) > 0);
-            if (parseInt(res.uid) > 0) {
+        this.url = "api/portal/auth";
+        this.doGet(this.url).subscribe(res => {
+            this.uid = parseInt(res.uid);
+            if (this.uid > 0) {
                 this.loggedIn = true;
             }
             else {
                 this.loggedIn = false;
             }
-            console.log("duck: " + this.loggedIn);
         });
     }
-    doLogin() {
-        this.url = "api/portal/auth/" + this.username + "/" + this.password;
-        return this.http.get(this.url).map((res) => res.json());
-    }
     login() {
-        this.doLogin().subscribe(data => { this.result = data; }, err => console.error("this is fine"), () => console.log(this.result));
+        this.url = "api/portal/auth" + this.username + "/" + this.password;
+        this.doGet(this.url).subscribe(res => {
+            this.checkAuth();
+        });
     }
     logout() {
     }

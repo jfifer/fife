@@ -18,9 +18,9 @@ class PortalModel extends AbstractDataModel {
 	   if($data) {
              session_start();
 	     $_SESSION['uid'] = $data['uid'];	
-	     return $data['uid'];
+	     return array("uid"=>$data['uid']);
 	   } else {
-	     return false;
+	     return array("uid"=>-1);;
 	   }
 	}
 

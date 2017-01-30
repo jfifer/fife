@@ -1,9 +1,8 @@
-{{username}}
-<div id="loginForm" *ngIf="loggedIn==false">
+<div id="loginForm" *ngIf="!loggedIn">
   <input [(ngModel)]="username" placeholder="username" />
   <input [(ngModel)]="password" type="password" placeholder="password" />
   <button (click)="login()">login</button>
 </div>
-<div id="loggedIn" *ngIf="loggedIn==true">
+<div id="loggedIn" *ngIf="loggedIn">
   <button (click)="logout()">logout</button>
 </div>

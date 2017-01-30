@@ -1,11 +1,5 @@
 <?php
-class PortalModel extends AbstractDataModel {
-	function listServerGroups() {
-		$query = "SELECT * FROM serverGroup";
-		$dataResource = mysqli_query($this->get_dbh_portal(), $query);
-		return $this->convert_to_array2($dataResource);
-	}
-
+class AuthModel extends AbstractDataModel {
 	function login($username, $password) {
 	   $username = mysqli_real_escape_string($this->get_dbh_portal(), $username);
 	   $password = mysqli_real_escape_string($this->get_dbh_portal(), $password);

@@ -24,8 +24,8 @@ export class LoginComponent {
    }
 
    checkAuth() {
-      this.url = "api/portal/auth";
-      this.doGet(this.url).subscribe(res => {
+      this.url = "api/auth";
+      this.doGet:q(this.url).subscribe(res => {
 	  this.uid = parseInt(res.uid);
 	  if(this.uid > 0) {
 	    this.loggedIn = true;
@@ -36,14 +36,17 @@ export class LoginComponent {
    }
 
    login() {
-      this.url = "api/portal/auth" + this.username + "/" + this.password;
+      this.url = "api/auth/" + this.username + "/" + this.password;
       this.doGet(this.url).subscribe(res => {
 	this.checkAuth();
       });
    }
 
    logout() {
-
+      this.url = "api/auth/logout";
+      this.doGet(this.url).subscribe(res => {
+	this.checkAuth();
+      });
    }
 }
 

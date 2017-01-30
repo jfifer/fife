@@ -9,28 +9,27 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 const core_1 = require('@angular/core');
+const login_component_1 = require('./login.component');
 require('rxjs/Rx');
 let AppComponent = class AppComponent {
-    constructor() {
+    constructor(login) {
         this.url = "api/portal/";
+        console.log("fuck");
+        login.checkAuth();
     }
-    doGet(url) {
-        return this.http.get(url).map((res) => res.json());
+    doGet() {
     }
     listServerGroups() {
-        this.url = "api/portal/query/server_group";
-        this.doGet(this.url).subscribe(res => {
-            console.log(res);
-        });
     }
 };
 AppComponent = __decorate([
     core_1.Component({
         selector: 'my-app',
         template: `Stuff Goes Here.`,
+        providers: [login_component_1.LoginComponent]
     }),
     core_1.Injectable(), 
-    __metadata('design:paramtypes', [])
+    __metadata('design:paramtypes', [login_component_1.LoginComponent])
 ], AppComponent);
 exports.AppComponent = AppComponent;
 //# sourceMappingURL=app.component.js.map

@@ -1,28 +1,17 @@
 <?php
 include_once 'AbstractController.php';
 
-class PortalController extends AbstractController {
+class AuthController extends AbstractController {
     public function getAction($request) {
-        if(isset($request->url_elements[2])) {
-           $query = $request->url_elements[2];
-           switch($query) {
-             case 'auth' :
-                $model = new PortalModel();
-                if(isset($request->url_elements[3]) && isset($request->url_elements[4])) {
-                  $username = $request->url_elements[3];
-                  $password = $request->url_elements[4];
-                  $data = $model->login($username, $password);
-                } else if(isset($request->url_elements[3]) && $request->url_elements[3] === "logout") {
-		  $data = $model->logout();
-		} else {
-                  $data = $model->authCheck();
-                }
-             default:
-                break;
-           }
-        } else {
-           $data = $this->errorResponse("Invalid Request");
-        }
+        $params = $request->url_elements;
+        $auth = new AuthModel();
+	if(isset($params[2]) && isset($params[3])) {
+	   $data = $auth->login($params[2], $params[3]);
+	} else if($params[2] === "logout" && !isset($params[3])) {
+	   $data = $auth->logout();
+	} else {
+	   $data = $auth->check();
+	}
         return $data;
     }
 
